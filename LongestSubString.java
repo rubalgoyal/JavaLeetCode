@@ -53,3 +53,27 @@ class Solution {
         return maxLength;       
     }
 }
+
+// Alternate Approach with Time complexity O(n).
+
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        int maxLength = 0;
+        HashSet<Character> uniqueChars = new HashSet<>();
+        int leftPointer = 0;
+
+        for (int rightPointer = 0; rightPointer < s.length(); rightPointer++) {
+            char currentChar = s.charAt(rightPointer);
+
+            while (uniqueChars.contains(currentChar)) {
+                uniqueChars.remove(s.charAt(leftPointer));
+                leftPointer++;
+            }
+
+            uniqueChars.add(currentChar);
+            maxLength = Math.max(maxLength, rightPointer - leftPointer + 1);
+        }
+
+        return maxLength;
+    }
+}
